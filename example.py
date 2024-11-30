@@ -1,7 +1,8 @@
-print('Hello world')
-f = open('example.txt','r',encoding='utf-8')
-print(f)
-print(f.readline())
-print(f.readline())
-print(f.readline())
-f.close()
+#読み込み
+with open('example.txt', 'r', encoding='utf-8') as f:
+    text = f.read()
+    print(text)
+
+#書き込み
+with open('example.txt', 'w', encoding='utf-8') as f:
+    f.write('Hello write method')
