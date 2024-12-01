@@ -1,15 +1,9 @@
-html = """"
-<html>
-    <body>
-        これは<a href="http://example.com">Example</a>です
-    </body>
-</html>"""
+text = '今度からMkDocksでドキュメントを書こう。#Python'
 
-from  bs4 import  BeautifulSoup
+import  re
 
-def crean_html(html,strip=False):
-    soup = BeautifulSoup(html,'html.parser')
-    text = soup.get_text(strip=strip)
-    return  text
+def clean_hashtag(text):
+    clean_text = re.sub(r'#[a-zA-Z]+','',text)
+    return  clean_text
 
-print(crean_html(html))
+print(clean_hashtag(text))
