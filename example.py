@@ -1,9 +1,5 @@
-text = '今度からMkDocksでドキュメントを書こう。#Python'
-
-import  re
-
-def clean_hashtag(text):
-    clean_text = re.sub(r'#[a-zA-Z]+','',text)
-    return  clean_text
-
-print(clean_hashtag(text))
+from  janome.tokenizer import Tokenizer
+text='彼女と国立美術館へ行った。'
+t = Tokenizer(wakati=True)
+for token in t.tokenize(text):
+    print(token)
