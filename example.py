@@ -1,8 +1,16 @@
-from janome.analyzer import Analyzer
-from janome.tokenfilter import POSKeepFilter
+from janome.tokenizer import Tokenizer
+import os
 
-text = '彼女と国立美術館へ言った。'
-token_filters = [POSKeepFilter('名詞')]
-a = Analyzer(token_filters=token_filters)
-for token in a.analyze(text):
+# ユーザー辞書ファイルの絶対パスを取得
+csv_path = os.path.abspath('userDict.csv')
+print(csv_path)
+# Tokenizerを初期化（ユーザー辞書を利用）
+t = Tokenizer(udic=csv_path, udic_enc='utf8')
+
+# 品詞分解する文章
+text = '彼女と国立新美術館へ行った。'
+
+# トークン化して表示
+print("品詞分解結果：")
+for token in t.tokenize(text):
     print(token)
