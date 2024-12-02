@@ -1,16 +1,25 @@
 from janome.tokenizer import Tokenizer
-import os
 
-# ユーザー辞書ファイルの絶対パスを取得
-csv_path = os.path.abspath('userDict.csv')
-print(csv_path)
-# Tokenizerを初期化（ユーザー辞書を利用）
-t = Tokenizer(udic=csv_path, udic_enc='utf8')
+# ストップワードを読み込む
+try:
+    with open('japanese-stopwords.txt', 'r', encoding='utf-8') as f:
+        stopwords = set(w.strip() for w in f)
+except FileNotFoundError:
+    print("エラー: ストップワードファイルが見つかりません。")
+    stopwords = set()
 
-# 品詞分解する文章
-text = '彼女と国立新美術館へ行った。'
+# ストップワードを除去する関数
+def remove_stopwords(words, stopwords):
+    return [w for w in words if w not in stopwords]
 
-# トークン化して表示
-print("品詞分解結果：")
-for token in t.tokenize(text):
-    print(token)
+# テキストをトークン化して処理
+t = Tokenizer(wakati=True)
+text = 'りんごをいくつか買う。'
+words = t.tokenize(text)
+print("分かち書き結果:", words)
+
+# ストップワードを除去
+filtered_words = remove_stopwords(words, stopwords)
+print("ストップワード除去後:", filtered_words)
+print("ストップワードリスト:", stopwords)
+print("'いくつか' in stopwords:", 'いくつか' in stopwords)
